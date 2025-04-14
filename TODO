@@ -1,0 +1,20 @@
+a) create a git repository in the PGPGlobal github org
+
+b) Sasha adds their scripts and documentation for initial image
+creation to the repository
+
+c) Set up a subdomain where nodes on the tailnet appear on the public
+Internet e.g. "at.personalgenomes.ai" so pa2z7 is
+"pa2z7.at.personalgenomes.ai".
+
+d) My next step is to have an Arvados install process against the VM
+image that Sasha shared, this will probably be pretty close to the
+document that Zoe wrote a few months ago, I can document that and add
+that to the repository
+
+e) Stand up an Arvados instance on the PGPi tailnet that is also
+available at a public domain name.  this is where we'll put the
+initial PGPi content, such as the alphafold demo, llamafiles, etc
+
+f) Have a documented process for creating an image (b), installing
+arvados (c) and copying content (d)
