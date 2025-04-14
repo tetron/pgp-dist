@@ -1,0 +1,124 @@
+##########################################################
+# Copyright (C) The Arvados Authors. All rights reserved.
+#
+# SPDX-License-Identifier: CC-BY-SA-3.0
+
+# These are the basic parameters to configure the installation
+
+# The Arvados cluster ID, needs to be 5 lowercase alphanumeric characters.
+CLUSTER="cluster_fixme_or_this_wont_work"
+
+# The domainname for your cluster's hosts
+DOMAIN="domain_fixme_or_this_wont_work"
+
+# For multi-node installs, the ssh log in for each node
+# must be root or able to sudo
+DEPLOY_USER=admin
+
+INITIAL_USER=admin
+
+# If not specified, the initial user email will be composed as
+# INITIAL_USER@CLUSTER.DOMAIN
+INITIAL_USER_EMAIL="admin@cluster_fixme_or_this_wont_work.domain_fixme_or_this_wont_work"
+
+# SSL CERTIFICATES
+# Arvados requires SSL certificates to work correctly. This installer supports these options:
+# * self-signed: let the installer create self-signed certificate(s)
+# * bring-your-own: supply your own certificate(s) in the `certs` directory
+# * lets-encrypt: automatically obtain and install SSL certificates for your hostname(s)
+#
+# See https://doc.arvados.org/intall/salt-single-host.html#certificates for more information.
+SSL_MODE="self-signed"
+
+# CUSTOM_CERTS_DIR is only used when SSL_MODE is set to "bring-your-own".
+# See https://doc.arvados.org/intall/salt-single-host.html#bring-your-own for more information.
+# CUSTOM_CERTS_DIR="${SCRIPT_DIR}/local_config_dir/certs"
+
+# Set the following to "yes" if the key files are encrypted and optionally set
+# a custom AWS secret name for each node to retrieve the password.
+SSL_KEY_ENCRYPTED="no"
+SSL_KEY_AWS_SECRET_NAME="${CLUSTER}-arvados-ssl-privkey-password"
+
+# Customize Prometheus & Grafana web UI access credentials
+MONITORING_USERNAME=${INITIAL_USER}
+MONITORING_PASSWORD=${INITIAL_USER_PASSWORD}
+MONITORING_EMAIL=${INITIAL_USER_EMAIL}
+# Sets the directory for Grafana dashboards
+# GRAFANA_DASHBOARDS_DIR="${SCRIPT_DIR}/local_config_dir/dashboards"
+
+# The mapping of nodes to roles
+# installer.sh will log in to each of these nodes and then provision
+# it for the specified roles.
+NODES=(
+  [localhost]='database,controller,monitoring,workbench2,webshell,keepproxy,keepweb,websocket,dispatcher,keepbalance,keepstore'
+)
+
+# HOSTNAME_EXT must be set to the address that users will use to
+# connect to the instance (e.g. what they will type into the URL bar
+# of the browser to get to workbench).  If you haven't given the
+# instance a working DNS name, you might need to use an IP address
+# here.
+HOSTNAME_EXT="hostname_ext_fixme_or_this_wont_work"
+
+# The internal IP address for the host.
+IP_INT="ip_int_fixme_or_this_wont_work"
+
+# External ports used by the Arvados services
+CONTROLLER_EXT_SSL_PORT=8800
+KEEP_EXT_SSL_PORT=8801
+KEEPWEB_EXT_SSL_PORT=8802
+WEBSHELL_EXT_SSL_PORT=8803
+WEBSOCKET_EXT_SSL_PORT=8804
+WORKBENCH1_EXT_SSL_PORT=8805
+WORKBENCH2_EXT_SSL_PORT=443
+
+CLUSTER_INT_CIDR=""
+CONTROLLER_INT_IP=""
+DATABASE_INT_IP=""
+WORKBENCH1_INT_IP=""
+DISPATCHER_INT_IP=""
+KEEPBALANCE_INT_IP=""
+WEBSOCKET_INT_IP=""
+KEEPWEB_INT_IP=""
+WORKBENCH2_INT_IP=""
+WEBSHELL_INT_IP=""
+KEEP_INT_IP=""
+KEEPSTORE0_INT_IP=""
+SHELL_INT_IP=""
+
+DATABASE_NAME="${CLUSTER}_arvados"
+DATABASE_USER="${CLUSTER}_arvados"
+# Set these if using an external PostgreSQL service.
+#DATABASE_EXTERNAL_SERVICE_HOST_OR_IP=
+#DATABASE_POSTGRESQL_VERSION=
+
+# The directory to check for the config files (pillars, states) you want to use.
+# There are a few examples under 'config_examples'.
+# CONFIG_DIR="local_config_dir"
+
+# Extra states to apply. If you use your own subdir, change this value accordingly
+# EXTRA_STATES_DIR="${CONFIG_DIR}/states"
+
+# These are ARVADOS-related settings.
+# Which release of Arvados repo you want to use
+RELEASE="production"
+# Which version of Arvados you want to install. Defaults to latest stable
+# VERSION="2.1.2-1"
+
+# This is an arvados-formula setting.
+# If branch is set, the script will switch to it before running salt
+# Usually not needed, only used for testing
+# BRANCH="main"
+
+##########################################################
+# Usually there's no need to modify things below this line
+
+# Formulas versions
+# ARVADOS_TAG="2.2.0"
+# POSTGRES_TAG="v0.44.0"
+# NGINX_TAG="v2.8.1"
+# DOCKER_TAG="v2.4.2"
+# LOCALE_TAG="v0.3.4"
+# LETSENCRYPT_TAG="v2.1.0"
+# PROMETHEUS_TAG="v5.6.5"
+# GRAFANA_TAG="v3.1.3"
