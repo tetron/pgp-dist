@@ -1,3 +1,4 @@
 local_config_dir
 local.params
+local.params.secrets
 *pem
